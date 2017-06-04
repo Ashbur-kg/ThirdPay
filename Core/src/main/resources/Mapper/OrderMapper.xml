@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zou.core.Dao.OrderDao">
+       <resultMap id="orderRm" type="com.zou.core.Vo.Order">
+              <id column="id" property="id" jdbcType="INTEGER" />
+              <result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
+              <result column="denote_amt" property="denoteAmt" jdbcType="VARCHAR"/>
+       </resultMap>
+       <select id="getOrder" parameterType="java.lang.Integer" resultMap="orderRm">
+              select * from orders where id = #{id}
+       </select>
+</mapper>

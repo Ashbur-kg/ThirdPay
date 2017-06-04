@@ -1,0 +1,53 @@
+server:
+    port: 8085
+spring:
+    application:
+        name: Comsumer
+    mvc:
+        view:
+            prefix: /WEB-INF/jsp/
+            suffix: .jsp
+        #static-path-pattern:
+        #spring.resources.static-locations:
+        thymeleaf:
+            prefix: /static/
+            suffix: .html
+            mode: HTML5
+            encoding: UTF-8
+            content-type: text/html
+            cache: false
+#开启thymeleaf
+#spring.thymeleaf.prefix=classpath:/templates/
+#spring.thymeleaf.suffix=.html
+#spring.thymeleaf.mode=HTML5
+#spring.thymeleaf.encoding=UTF-8
+#spring.thymeleaf.content-type=text/html
+# set to false for hot refresh
+#spring.thymeleaf.cache=false
+#Eureka
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka
+    instance:
+        instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+        prefer-id-address: true
+logging:                                # 配置日志级别，让hibernate打印出执行的SQL
+  level:
+    root: INFO
+    org.springframework: DEBUG
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+
+
+
+
+#整合JSP
+# 页面默认前缀目录
+#spring.mvc.view.prefix=/WEB-INF/jsp/
+
+# 响应页面默认后缀
+#spring.mvc.view.suffix=.jsp
+# 自定义属性，可以在Controller中读取
+#application.hello=Hello Angel From application
