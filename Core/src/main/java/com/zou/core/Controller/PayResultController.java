@@ -1,8 +1,8 @@
 package com.zou.core.Controller;
 
 import com.zou.core.Service.OrderService;
-import com.zou.core.Vo.ResponsePayResult;
-import com.zou.core.Vo.RequestPayResult;
+import com.zou.domain.RequestPayResult;
+import com.zou.domain.ResponsePayResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

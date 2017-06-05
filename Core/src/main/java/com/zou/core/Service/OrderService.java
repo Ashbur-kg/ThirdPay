@@ -2,7 +2,7 @@ package com.zou.core.Service;
 
 import com.zou.core.Dao.OrderDao;
 import com.zou.core.Vo.Order;
-import com.zou.core.Vo.ResponsePayResult;
+import com.zou.domain.ResponsePayResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
