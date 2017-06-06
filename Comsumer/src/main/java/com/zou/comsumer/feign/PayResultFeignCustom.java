@@ -1,10 +1,10 @@
 package com.zou.comsumer.feign;
 
-import com.zou.config.FeignConfiguration;
+import com.zou.config.FeignConfigurationCustom;
 import com.zou.domain.ResponsePayResult;
-import feign.RequestLine;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Created by Administrator on 2017/6/5.
@@ -16,15 +16,17 @@ import org.springframework.web.bind.annotation.PathVariable;
  *
  * @author 周立
  */
-@FeignClient(name = "core", configuration = FeignConfiguration.class)
+@FeignClient(name = "core", configuration = FeignConfigurationCustom.class)
 public interface PayResultFeignCustom {
     /**
      * 使用feign自带的注解@RequestLine
      *
      * @param id 用户id
      * @return 用户信息
-     * @see https://github.com/OpenFeign/feign
+    //* @see https://github.com/OpenFeign/feign
      */
-    @RequestLine("GET /{id}")
-    public ResponsePayResult getPayResult(@PathVariable("id") Integer id);
+    //@RequestLine("GET /{id} ")
+    //注意：这里是使用@Param，而不是@PathVariable
+    @RequestMapping("/{id}")
+    public ResponsePayResult getPayResult(@PathVariable("id")/*@Param("id")*/ Integer id);
 }

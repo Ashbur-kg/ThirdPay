@@ -1,2 +1,26 @@
 server:
-  port: 8083
+    port: 8083
+spring:
+    application:
+        name: hystrix
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+security:
+    ignored: /css/**,/js/**,/favicon.ico,/webjars/**
+    basic:
+        enabled: false
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka/
+    instance:
+        instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+        prefer-ip-address: true
+turbine:
+  #turbine同时监控两个项目
+    appConfig: core,comsumer
+    clusterNameExpression: "'default'"
+    #instanceUrlSuffix: /${management.context-path}/hystrix.stream

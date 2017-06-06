@@ -3,6 +3,16 @@ server:
 spring:
     application:
         name: Comsumer
+    #配置文件上传
+    http:
+        multipart:
+          max-file-size: 2000Mb      # Max file size，默认1M
+          max-request-size: 2500Mb   # Max request size，默认10M
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
     mvc:
         view:
             prefix: /WEB-INF/jsp/

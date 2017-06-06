@@ -17,6 +17,11 @@ mybatis:
 spring:
     application:
         name: core
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
     datasource:
         name: era
         url: jdbc:mysql://localhost:3306/zly

@@ -41,13 +41,14 @@ public class PayController {
         return "index";
     }
 
-    @GetMapping("/getPayResult")
-    public ResponsePayResult getPayResult(ModelMap modelMap,Integer id){
-        //this.restTemplate.postForObject("http://core/postPayResult", ResponsePayResult.class);
-        ResponsePayResult payResult = restTemplate.getForObject("http://core/postPayResult/1", ResponsePayResult.class);
-        modelMap.put("payResult", payResult);
-        return payResult;
-    }
+    //@GetMapping("/getPayResult")
+    //public ResponsePayResult getPayResult(ModelMap modelMap,Integer id){
+    //    //this.restTemplate.postForObject("http://core/postPayResult", ResponsePayResult.class);
+    //    ResponsePayResult payResult = restTemplate.getForObject("http://core/postPayResult/1", ResponsePayResult
+    // .class);
+    //    modelMap.put("payResult", payResult);
+    //    return payResult;
+    //}
 
     //使用默认的Feign
     @GetMapping("/getPayResultByFeign")

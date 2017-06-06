@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @author 周立
  */
 @Configuration
-public class FeignConfiguration {
+public class FeignConfigurationCustom {
   /**
    * 将契约改为feign原生的默认契约。这样就可以使用feign自带的注解了。
    * @return 默认的feign契约

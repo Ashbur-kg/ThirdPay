@@ -1,0 +1,27 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: zuul
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka/
+    instance:
+        prefer-ip-address: true
+        instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+logging:
+    level:
+        com.netflix:DEBUG
+zuul:
+    routes:
+        core:
+            #\u6307\u5B9A\u654F\u611Fheader\u5934
+            path: /user
+            sensitive-headers: Cookie,Set-Cookie,Authorization
+            url: https://downstream
+# \u4E0A\u4F20\u5927\u6587\u4EF6\u5F97\u5C06\u8D85\u65F6\u65F6\u95F4\u8BBE\u7F6E\u957F\u4E00\u4E9B\uFF0C\u5426\u5219\u4F1A\u62A5\u8D85\u65F6\u5F02\u5E38\u3002\u4EE5\u4E0B\u51E0\u884C\u8D85\u65F6\u8BBE\u7F6E\u6765\u81EAhttp://cloud.spring.io/spring-cloud-static/Camden.SR3/#_uploading_files_through_zuul
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
