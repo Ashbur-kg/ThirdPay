@@ -3,6 +3,7 @@ package com.zou.comsumer.feign;
 import com.zou.domain.OrderPojo;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
@@ -16,7 +17,7 @@ import java.util.Date;
 @FeignClient(name = "core",fallback = OrderFeignFallback.class)
 public interface OrderFeignClientFallback {
     @RequestMapping("/getOrderById/{id}")
-    public OrderPojo getOrderById();
+    public OrderPojo getOrderById(@PathVariable("id") Long id);
 }
 
 /**
@@ -26,9 +27,8 @@ public interface OrderFeignClientFallback {
  */
 @Component
 class OrderFeignFallback implements OrderFeignClientFallback {
-
     @Override
-    public OrderPojo getOrderById() {
+    public OrderPojo getOrderById(@PathVariable("id") Long id) {
         OrderPojo order = new OrderPojo();
         order.setId(1L);
         order.setUpdateTime(new Date());

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 public interface PayResultFeignClient {
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  //@ResponseBody
   public ResponsePayResult getPayResult(@PathVariable("id") Integer id);
 
 }

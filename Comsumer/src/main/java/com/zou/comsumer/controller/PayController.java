@@ -10,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -41,33 +38,34 @@ public class PayController {
         return "index";
     }
 
-    //@GetMapping("/getPayResult")
-    //public ResponsePayResult getPayResult(ModelMap modelMap,Integer id){
-    //    //this.restTemplate.postForObject("http://core/postPayResult", ResponsePayResult.class);
-    //    ResponsePayResult payResult = restTemplate.getForObject("http://core/postPayResult/1", ResponsePayResult
-    // .class);
-    //    modelMap.put("payResult", payResult);
-    //    return payResult;
-    //}
+    @GetMapping("/getPayResult")
+    public ResponsePayResult getPayResult(ModelMap modelMap, Integer id) {
+        //this.restTemplate.postForObject("http://core/postPayResult", ResponsePayResult.class);
+        ResponsePayResult payResult = restTemplate.getForObject("http://core/postPayResult/1", ResponsePayResult
+                .class);
+        modelMap.put("payResult", payResult);
+        return payResult;
+    }
 
     //使用默认的Feign
-    @GetMapping("/getPayResultByFeign")
-    public ResponsePayResult getPayResultByFeign(ModelMap modelMap, Integer id) {
-        ResponsePayResult payResult = feignClient.getPayResult(1);
+    @GetMapping("/getPayResultByFeign/{id}")
+    public ResponsePayResult getPayResultByFeign(@PathVariable("id") Integer id) {
+        ResponsePayResult payResult = feignClient.getPayResult(id);
+        System.out.println(payResult);
         return payResult;
     }
 
     //使用自定义的Feign
-    @GetMapping("/getPayResultByFeignCustom")
-    public ResponsePayResult getPayResultByFeignCustom(ModelMap modelMap, Integer id) {
-        ResponsePayResult payResult = feignClientCustom.getPayResult(1);
+    @GetMapping("/getPayResultByFeignCustom/{id}")
+    public ResponsePayResult getPayResultByFeignCustom(@PathVariable("id") Integer id) {
+        ResponsePayResult payResult = feignClientCustom.getPayResult(id);
         return payResult;
     }
 
     //Post请求
     @PostMapping("/getPayResultByPost")
     public ResponsePayResult getPayResultByPost(@RequestBody RequestPayResult requestPayResult) {
-        ResponsePayResult payResult = feignPost.getPayResult(1);
+        ResponsePayResult payResult = feignPost.getPayResult(470);
         return payResult;
     }
 }

@@ -5,6 +5,7 @@ import feign.hystrix.FallbackFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -13,13 +14,14 @@ import java.util.Date;
 /**
  * Created by Administrator on 2017/6/5.
  */
-@FeignClient(name = "core", fallback = OrderFeignFallback.class)
+@FeignClient(name = "core", fallbackFactory = OrderFeignFallbackFactory.class)
 
 public interface OrderFeignClientFallbackFactory {
     @GetMapping("/getOrderById/{id}")
     public OrderPojo getOrderById(@PathVariable("id") Long id);
 }
 
+@Component
 //fallbackFactory属性还有很多其他的用途，例如让不同的异常返回不同的回退结果
 class OrderFeignFallbackFactory implements FallbackFactory<OrderFeignClientFallbackFactory> {
     public static final Logger LOGGER = LoggerFactory.getLogger(OrderFeignFallbackFactory.class);

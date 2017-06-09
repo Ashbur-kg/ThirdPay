@@ -22,6 +22,11 @@ spring:
         port: 5672
         username: guest
         password: guest
+    #zipkin:
+        #base-url: http://localhost:9411
+    sleuth:
+        sampler:
+            percentage: 1.0
     datasource:
         name: era
         url: jdbc:mysql://localhost:3306/zly

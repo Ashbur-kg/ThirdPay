@@ -1,11 +1,14 @@
 package com.zou.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Administrator on 2017/6/5.
  */
-public class OrderPojo {
+public class OrderPojo implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Long id;
     private Date createTime;
     private Date updateTime;

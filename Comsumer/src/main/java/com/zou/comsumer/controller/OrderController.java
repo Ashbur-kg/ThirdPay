@@ -1,6 +1,8 @@
 package com.zou.comsumer.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.zou.comsumer.feign.OrderFeignClientFallback;
+import com.zou.comsumer.feign.OrderFeignClientFallbackFactory;
 import com.zou.domain.OrderPojo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,12 @@ public class OrderController {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private OrderFeignClientFallback feignClientFallback;
+
+    @Autowired
+    private OrderFeignClientFallbackFactory feignClientFallbackFactory;
     //Ribbon负载均衡
     @Autowired
     private LoadBalancerClient loadBalancerClient;
@@ -30,17 +38,30 @@ public class OrderController {
     @HystrixCommand(fallbackMethod = "getByIdFallback")
     @GetMapping("/getOrderById/{id}")
     public OrderPojo getOrderById(@PathVariable Long id){
-        OrderPojo orderPojo = restTemplate.getForObject("http://core/getOrderById/1", OrderPojo.class);
+        OrderPojo orderPojo = restTemplate.getForObject("http://core/getOrderById/" + id, OrderPojo.class);
         return orderPojo;
+        //return null;
     }
 
     public OrderPojo getByIdFallback(Long id){
         OrderPojo order = new OrderPojo();
-        order.setId(1L);
+        order.setId(100L);
         order.setUpdateTime(new Date());
         order.setCreateTime(new Date());
         return order;
     }
 
+    @GetMapping("/getOrderByIdByFeign/{id}")
+    public OrderPojo getOrderByIdByFeign(@PathVariable Long id) {
+        OrderPojo orderPojo = feignClientFallback.getOrderById(id);
+        return orderPojo;
+        //return null;
+    }
 
+    @GetMapping("/getOrderByIdByFeignFactory/{id}")
+    public OrderPojo getOrderByIdByFeignFactory(@PathVariable Long id) {
+        OrderPojo orderPojo = feignClientFallbackFactory.getOrderById(id);
+        return orderPojo;
+        //return null;
+    }
 }

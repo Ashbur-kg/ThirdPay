@@ -1,18 +1,18 @@
 server:
     port: 8085
 spring:
-    application:
-        name: Comsumer
+    #application:
+        #name: Comsumer
     #配置文件上传
     http:
         multipart:
           max-file-size: 2000Mb      # Max file size，默认1M
           max-request-size: 2500Mb   # Max request size，默认10M
-    rabbitmq:
-        host: localhost
-        port: 5672
-        username: guest
-        password: guest
+#    rabbitmq:
+#        host: localhost
+#        port: 5672
+#        username: guest
+#        password: guest
     mvc:
         view:
             prefix: /WEB-INF/jsp/
@@ -26,6 +26,11 @@ spring:
             encoding: UTF-8
             content-type: text/html
             cache: false
+    #zipkin:
+        #base-url: http://localhost:9411
+    sleuth:
+        sampler:
+            percentage: 1.0
 #开启thymeleaf
 #spring.thymeleaf.prefix=classpath:/templates/
 #spring.thymeleaf.suffix=.html
@@ -35,17 +40,13 @@ spring:
 # set to false for hot refresh
 #spring.thymeleaf.cache=false
 #Eureka
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8761/eureka
-    instance:
-        instance-id: ${spring.cloud.client.ipAddress}:${server.port}
-        prefer-id-address: true
+
+
 logging:                                # 配置日志级别，让hibernate打印出执行的SQL
   level:
     root: INFO
-    org.springframework: DEBUG
+    org.springframework.cloud: INFO
+    org.springframework.boot: INFO
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE

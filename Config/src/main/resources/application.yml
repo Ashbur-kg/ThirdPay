@@ -1,24 +1,49 @@
 server:
-    port: 8084
+  port: 8084
 spring:
-    application:
-        name: Config
-    cloud:
-        config:
-          server:
-            git:
-              uri: https://git.oschina.net/itmuch/spring-cloud-config-repo      # ����Git�ֿ�ĵ�ַ
-              username:                                                         # Git�ֿ���˺�
-              password:
+  application:
+    name: Config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/lingchuanzhou/spring-cloud-config-repo
+          username: chuanzhouling@gmail.com
+          password: 13479lcz
+        health:
+          repositories:
+            a-foo:
+              label: config-label-v2.0
+              name: microservice-foo
+              profiles: dev
+        #设置跟踪总线事件
+        bus:
+          trace:
+          enabled: true
+    rabbitmq:
+      host: localhost
+      port: 5672
+      username: guest
+      password: guest
 #Eureka
 eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8761/eureka
-    instance:
-        instance-id: ${spring.cloud.client.ipAddress}:${server.port}
-        prefer-id-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-id-address: true
+logging:
+  level:
+    org.springframework.cloud: DEBUG
+    org.springframework.boot: DEBUG
 #eureka:
  # client:
   #  serviceUrl:
    #   defaultZone: http://localhost:8761/eureka/
+security:
+  basic:
+    enabled: true               # 开启基于HTTP basic的认证
+  user:
+    name: user                  # 配置登录的账号是user
+    password: password       # 配置登录的密码是password123
